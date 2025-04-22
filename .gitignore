@@ -1,0 +1,53 @@
+# Python bytecode
+*.py[cod]
+__pycache__/
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+env.bak/
+venv.bak/
+showroomvenv/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Django migration files (optional, depends on your use case)
+*.sqlite3
+
+# pytest cache
+.cache/
+
+# Django secret key (always keep it secret)
+*.key
+
+# Media files (if you upload media in development, consider ignoring it)
+media/
+
+# Static files directory (you can manage static files via Git if you want)
+static/
+
+# Other temporary files (example)
+*.bak
+*.swp
+*.swo

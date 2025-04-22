@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Mobil</title>
+</head>
+<body>
+    <h1>Daftar Mobil Showroom</h1>
+    <ul>
+        {% for car in cars %}
+            <li>
+                <a href="{% url 'car_detail' pk=car.pk %}">
+                    {{ car.merk }} {{ car.model }} - {{ car.tahun }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_car' %}">Tambah Mobil Baru</a> <!-- Link untuk menambah mobil -->
+</body>
+</html>

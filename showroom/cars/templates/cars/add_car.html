@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tambah Mobil</title>
+    <style>
+        .bank-field-group {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tambah Mobil</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <p>{{ form.merk.label }}: {{ form.merk }}</p>
+        <p>{{ form.model.label }}: {{ form.model }}</p>
+        <p>{{ form.tahun.label }}: {{ form.tahun }}</p>
+        <p>{{ form.harga_pasar.label }}: {{ form.harga_pasar }}</p>
+
+        <p>{{ form.dibeli_dengan_bank }} {{ form.dibeli_dengan_bank.label }}</p>
+
+        <div class="bank-field-group">
+            <p>{{ form.dana_bank.label }}: {{ form.dana_bank }}</p>
+            <p>{{ form.suku_bunga.label }}: {{ form.suku_bunga }}</p>
+        </div>
+
+        <button type="submit">Simpan</button>
+    </form>
+
+    <script>
+        const checkbox = document.querySelector('input[name="dibeli_dengan_bank"]');
+        const bankFields = document.querySelector('.bank-field-group');
+
+        function toggleBankFields() {
+            if (checkbox.checked) {
+                bankFields.style.display = 'block';
+            } else {
+                bankFields.style.display = 'none';
+            }
+        }
+
+        checkbox.addEventListener('change', toggleBankFields);
+        document.addEventListener('DOMContentLoaded', toggleBankFields);
+    </script>
+</body>
+</html>

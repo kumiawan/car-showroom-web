@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Mobil</title>
+  </head>
+  <body>
+    <h1>Detail Mobil</h1>
+    <p>Merk: {{ car.merk }}</p>
+    <p>Model: {{ car.model }}</p>
+    <p>Tahun: {{ car.tahun }}</p>
+    <p>Harga: {{ car.harga_pasar }}</p>
+    <p>Pinjaman Bank: {{ car.dana_bank }}</p>
+    <p>Suku Bunga: {{ car.suku_bunga }}</p>
+
+    <h3>Riwayat Service:</h3>
+
+    {% if services %}
+    <ul>
+      {% for service in services %}
+      <li>
+        <strong>{{ service.tanggal }}</strong>: {{ service.deskripsi }} - Rp{{ service.biaya|floatformat:2 }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Belum ada riwayat service untuk mobil ini.</p>
+    {% endif %}
+    <a href="{% url 'car_list' %}">Kembali ke Daftar Mobil</a>
+    <br/>
+    <a href="{% url 'add_service' car.pk %}">Tambah Service</a>
+  </body>
+</html>

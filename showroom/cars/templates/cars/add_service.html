@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Mobil</title>
+</head>
+<body>
+  <h2>Tambah Service untuk {{ car.merk }} {{ car.model }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Simpan</button>
+  </form>
+  <a href="{% url 'car_detail' car.pk %}">← Kembali ke Detail Mobil</a>
+</body>
+</html>
