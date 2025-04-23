@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Mobil</title>
-</head>
-<body>
-  <h2>Tambah Service untuk {{ car.merk }} {{ car.model }}</h2>
-  <form method="post">
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-center">
+    Tambah Service untuk {{ car.merk }} {{ car.model }}
+  </h2>
+
+  <form method="post" class="space-y-4">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Simpan</button>
+    {% for field in form %}
+      <div>
+        <label class="block text-sm font-medium text-gray-700">{{ field.label_tag }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <p class="text-sm text-red-600">{{ field.errors }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary w-full">Simpan</button>
   </form>
-  <a href="{% url 'car_detail' car.pk %}">← Kembali ke Detail Mobil</a>
-</body>
-</html>
+
+  <div class="mt-4 text-center">
+    <a href="{% url 'car_detail' car.pk %}" class="text-blue-600 hover:underline">← Kembali</a>
+  </div>
+</div>
+{% endblock content %}

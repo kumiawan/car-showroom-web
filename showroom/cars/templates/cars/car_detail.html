@@ -1,34 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Mobil</title>
-  </head>
-  <body>
-    <h1>Detail Mobil</h1>
-    <p>Merk: {{ car.merk }}</p>
-    <p>Model: {{ car.model }}</p>
-    <p>Tahun: {{ car.tahun }}</p>
-    <p>Harga: {{ car.harga_pasar }}</p>
-    <p>Pinjaman Bank: {{ car.dana_bank }}</p>
-    <p>Suku Bunga: {{ car.suku_bunga }}</p>
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow">
+  <h1 class="text-2xl font-bold mb-4 text-center">Detail Mobil</h1>
 
-    <h3>Riwayat Service:</h3>
+  <div class="space-y-2 text-gray-700">
+    <p><strong>Merk:</strong> {{ car.merk }}</p>
+    <p><strong>Model:</strong> {{ car.model }}</p>
+    <p><strong>Tahun:</strong> {{ car.tahun }}</p>
+    <p><strong>Harga Pasar:</strong> Rp{{ car.harga_pasar|floatformat:2 }}</p>
+    <p><strong>Pinjaman Bank:</strong> Rp{{ car.dana_bank|default:"0"|floatformat:2 }}</p>
+    <p><strong>Suku Bunga:</strong> {{ car.suku_bunga|default:"0" }}%</p>
+  </div>
 
+  <div class="mt-6">
+    <h3 class="text-xl font-semibold mb-2">Riwayat Service</h3>
     {% if services %}
-    <ul>
+    <ul class="space-y-2">
       {% for service in services %}
-      <li>
-        <strong>{{ service.tanggal }}</strong>: {{ service.deskripsi }} - Rp{{ service.biaya|floatformat:2 }}
+      <li class="p-3 bg-gray-100 rounded-lg">
+        <strong>{{ service.tanggal }}</strong> – {{ service.deskripsi }} 
+        <span class="float-right font-semibold">Rp{{ service.biaya|floatformat:2 }}</span>
       </li>
       {% endfor %}
     </ul>
     {% else %}
-    <p>Belum ada riwayat service untuk mobil ini.</p>
+    <p class="text-gray-500">Belum ada riwayat service untuk mobil ini.</p>
     {% endif %}
-    <a href="{% url 'car_list' %}">Kembali ke Daftar Mobil</a>
-    <br/>
-    <a href="{% url 'add_service' car.pk %}">Tambah Service</a>
-  </body>
-</html>
+  </div>
+
+  <div class="mt-6 flex gap-4">
+    <a href="{% url 'car_list' %}" class="btn btn-outline">← Kembali</a>
+    <a href="{% url 'add_service' car.pk %}" class="btn btn-primary">+ Tambah Service</a>
+  </div>
+
+  <form action="{% url 'delete_car' pk=car.pk %}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus mobil ini?');" class="mt-4">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-error">🗑️ Hapus Mobil</button>
+  </form>
+
+  <div class="mt-6">
+    <h3 class="text-xl font-semibold">Harga Pokok Produksi (HPP)</h3>
+    <p class="text-lg font-bold text-green-700">Rp{{ car.hpp|floatformat:2 }}</p>
+  </div>
+</div>
+{% endblock content %}

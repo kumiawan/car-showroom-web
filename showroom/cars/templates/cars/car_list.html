@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Mobil</title>
-</head>
-<body>
-    <h1>Daftar Mobil Showroom</h1>
-    <ul>
-        {% for car in cars %}
-            <li>
-                <a href="{% url 'car_detail' pk=car.pk %}">
-                    {{ car.merk }} {{ car.model }} - {{ car.tahun }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'add_car' %}">Tambah Mobil Baru</a> <!-- Link untuk menambah mobil -->
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-3xl font-semibold mb-6 px-4">Daftar Mobil Showroom</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
+  {% for car in cars %}
+  <div class="bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition duration-200">
+    <h2 class="text-xl font-bold mb-1">{{ car.merk }} {{ car.model }}</h2>
+    <p class="text-gray-500 mb-2">Tahun: {{ car.tahun }}</p>
+    <p class="text-gray-700 font-semibold">Harga Pasar: Rp {{ car.harga_pasar }}</p>
+    <div class="mt-4 flex justify-end">
+      <a href="{% url 'car_detail' pk=car.pk %}" class="btn btn-primary btn-sm">
+        Detail
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
